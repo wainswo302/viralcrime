@@ -1,0 +1,6 @@
+requests>=2.31
+# optional — only needed for LLM-assisted extraction (extract.py falls back
+# to the deterministic classifier when absent):
+# anthropic>=0.40
+# real docket fetching:
+# playwright>=1.45

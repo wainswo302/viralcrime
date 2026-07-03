@@ -1,0 +1,29 @@
+# env
+.env
+.env.local
+.env.*.local
+
+# node / next
+node_modules/
+.next/
+out/
+
+# java / maven
+target/
+*.class
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# os / ide
+.DS_Store
+.idea/
+*.iml
+.vscode/
+.claude/settings.local.json
+
+# build caches
+*.tsbuildinfo
