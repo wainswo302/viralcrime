@@ -1,7 +1,7 @@
 # ---- build ----
 FROM eclipse-temurin:25-jdk AS build
 WORKDIR /app
-COPY .mvn/ .mvn/ 2>/dev/null || true
+COPY .mvn/ .mvn/
 COPY mvnw pom.xml ./
 RUN chmod +x mvnw 2>/dev/null || true; ./mvnw -q dependency:go-offline || mvn -q dependency:go-offline
 COPY src ./src
