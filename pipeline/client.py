@@ -7,6 +7,10 @@ import requests
 BASE = os.environ.get("API_BASE_URL", "http://localhost:8080")
 TIMEOUT = 15
 
+# Everything under /api/drafts/** requires the shared admin credential;
+# GET /api/cases/** stays public and needs no auth.
+_ADMIN_AUTH = (os.environ.get("ADMIN_USERNAME", ""), os.environ.get("ADMIN_PASSWORD", ""))
+
 
 def get_case(slug: str) -> Optional[dict[str, Any]]:
     r = requests.get(f"{BASE}/api/cases/{slug}", timeout=TIMEOUT)
@@ -30,7 +34,7 @@ def submit_draft(slug: str, *, kind: str, detail: str,
         "sourceUrl": source_url,
         "createdBy": created_by,
     }
-    r = requests.post(f"{BASE}/api/cases/{slug}/drafts", json=payload, timeout=TIMEOUT)
+    r = requests.post(f"{BASE}/api/cases/{slug}/drafts", json=payload, auth=_ADMIN_AUTH, timeout=TIMEOUT)
     r.raise_for_status()
     return r.json()
 
@@ -51,6 +55,6 @@ def submit_new_case_draft(*, headline: str, event_type: str,
         "videoUrl": video_url,
         "createdBy": created_by,
     }
-    r = requests.post(f"{BASE}/api/drafts/new-case", json=payload, timeout=TIMEOUT)
+    r = requests.post(f"{BASE}/api/drafts/new-case", json=payload, auth=_ADMIN_AUTH, timeout=TIMEOUT)
     r.raise_for_status()
     return r.json()

@@ -31,9 +31,11 @@ API_BASE_URL=http://localhost:8080 python monitor.py --slugs <slug> ...
 ```
 Then review the queued drafts:
 ```bash
-curl localhost:8080/api/drafts
-curl -X POST localhost:8080/api/drafts/<id>/approve -H 'content-type: application/json' -d '{"reviewer":"editor@site"}'
+curl -u "$ADMIN_USERNAME:$ADMIN_PASSWORD" localhost:8080/api/drafts
+curl -u "$ADMIN_USERNAME:$ADMIN_PASSWORD" -X POST localhost:8080/api/drafts/<id>/approve -H 'content-type: application/json' -d '{"reviewer":"editor@site"}'
 ```
+Everything under `/api/drafts/**` requires the admin credential (`ADMIN_USERNAME`/
+`ADMIN_PASSWORD`, same as the API's) — `client.py` already sends it automatically.
 Approving a disposition draft advances the case to RESOLVED through the
 lifecycle service — the same guarded path everything else uses.
 
@@ -54,8 +56,8 @@ submitted. Without a key (or if the LLM call fails), it just prompts you to
 fill the fields in yourself; either way, nothing is created until you confirm,
 and the result is a **PENDING** draft, not a case:
 ```bash
-curl localhost:8080/api/drafts
-curl -X POST localhost:8080/api/drafts/<id>/approve -H 'content-type: application/json' -d '{"reviewer":"editor@site"}'
+curl -u "$ADMIN_USERNAME:$ADMIN_PASSWORD" localhost:8080/api/drafts
+curl -u "$ADMIN_USERNAME:$ADMIN_PASSWORD" -X POST localhost:8080/api/drafts/<id>/approve -H 'content-type: application/json' -d '{"reviewer":"editor@site"}'
 ```
 Approving a `NEW_CASE` draft creates the case in `SURFACED` — same as any
 other case, still needs to be verified and walked through the lifecycle
