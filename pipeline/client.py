@@ -33,3 +33,24 @@ def submit_draft(slug: str, *, kind: str, detail: str,
     r = requests.post(f"{BASE}/api/cases/{slug}/drafts", json=payload, timeout=TIMEOUT)
     r.raise_for_status()
     return r.json()
+
+
+def submit_new_case_draft(*, headline: str, event_type: str,
+                          jurisdiction_city: str, jurisdiction_state: str,
+                          video_url: str,
+                          incident_date: Optional[str] = None,
+                          created_by: str = "intake-agent") -> dict[str, Any]:
+    """Propose a brand-new case from a video link. Lands as a PENDING draft;
+    approving it creates the case SURFACED, for a human to verify and promote."""
+    payload = {
+        "headline": headline,
+        "eventType": event_type,
+        "jurisdictionCity": jurisdiction_city,
+        "jurisdictionState": jurisdiction_state,
+        "incidentDate": incident_date,
+        "videoUrl": video_url,
+        "createdBy": created_by,
+    }
+    r = requests.post(f"{BASE}/api/drafts/new-case", json=payload, timeout=TIMEOUT)
+    r.raise_for_status()
+    return r.json()
