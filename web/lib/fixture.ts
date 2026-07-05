@@ -21,6 +21,7 @@ export const FIXTURE: Record<string, CaseDto> = {
     videoRatingValue: 5,
     videoNotes: "Confirmed via source contact, geolocation, and metadata review.",
     embedRefs: [],
+    tags: ["viral", "video-verified"],
     sources: [
       { type: "OFFICIAL_RECORD", url: "https://example.gov/docket/2026-0611", label: "Municipal court docket" },
       { type: "MAINSTREAM_COVERAGE", url: "https://example.com/news/watch-party", label: "Local news coverage" }
@@ -53,6 +54,7 @@ export const FIXTURE: Record<string, CaseDto> = {
     videoRatingValue: 3,
     videoNotes: "Original clip authentic; a viral repost attached an unrelated location.",
     embedRefs: [],
+    tags: ["viral", "miscaptioned"],
     sources: [
       { type: "OFFICIAL_RECORD", url: "https://example.gov/mont/docket/2026-0402", label: "Montgomery County docket" },
       { type: "MAINSTREAM_COVERAGE", url: "https://example.com/news/markley-theft", label: "Local news coverage" }

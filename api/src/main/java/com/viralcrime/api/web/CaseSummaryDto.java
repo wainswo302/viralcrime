@@ -15,5 +15,6 @@ public record CaseSummaryDto(
     String state,
     LocalDate incidentDate,
     String videoProvenance,
-    List<String> embedRefs
+    List<String> embedRefs,
+    List<String> tags
 ) { }

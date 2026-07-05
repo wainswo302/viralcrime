@@ -12,7 +12,9 @@ function Gate({ children }: { children: React.ReactNode }) {
   return (
     <main className="wrap">
       <div className="admin-bar">
-        <span className="eyebrow" style={{ margin: 0 }}>Admin</span>
+        <span className="eyebrow" style={{ margin: 0 }}>
+          Admin · <a href="/admin">Review queue</a> · <a href="/admin/new-story">New story</a> · <a href="/admin/cases">Cases</a>
+        </span>
         <span className="admin-bar__who">
           {session.username} · <a href="#" onClick={(e) => { e.preventDefault(); logout(); }}>Sign out</a>
         </span>

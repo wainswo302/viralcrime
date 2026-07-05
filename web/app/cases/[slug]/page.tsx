@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getCase, listCases } from "@/lib/api";
+import { slugifyTag } from "@/lib/tags";
 import { buildAllJsonLd } from "@/lib/schema";
 import { formatDate } from "@/lib/status";
 import { StatusTags } from "@/components/StatusTags";
@@ -78,6 +79,13 @@ export default async function CasePage({ params }: Params) {
 
       <CaseTimeline c={c} />
       <SourceList c={c} />
+
+      <div className="tags" style={{ marginTop: "-1rem" }}>
+        <a className="tag-link" href={`/tags/${slugifyTag(c.eventType)}`}>#{c.eventType}</a>
+        {c.tags.map((t) => (
+          <a className="tag-link" key={t} href={`/tags/${slugifyTag(t)}`}>#{t}</a>
+        ))}
+      </div>
 
       <footer className="foot">
         <span>By staff editor · last verified {formatDate(c.lastVerifiedAt)}</span>

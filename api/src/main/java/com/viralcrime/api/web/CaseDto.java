@@ -25,6 +25,7 @@ public record CaseDto(
     Integer videoRatingValue,
     String videoNotes,
     List<String> embedRefs,
+    List<String> tags,
     List<SourceDto> sources,
     List<ClaimReviewDto> claimReviews,
     List<String> namedIndividuals,

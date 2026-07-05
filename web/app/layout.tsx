@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import ThemeToggle from "@/components/ThemeToggle";
+import SiteNav from "@/components/SiteNav";
 
 export const metadata: Metadata = {
   title: "ViralCrime — public-record truth engine",
@@ -30,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body>
-        <ThemeToggle />
+        <SiteNav />
         {children}
       </body>
     </html>

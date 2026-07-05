@@ -25,6 +25,7 @@ export interface CaseSummaryDto {
   incidentDate: string | null;
   videoProvenance: string;
   embedRefs: string[];
+  tags: string[];
 }
 
 export interface CaseDto {
@@ -46,6 +47,7 @@ export interface CaseDto {
   videoRatingValue: number | null;
   videoNotes: string | null;
   embedRefs: string[];
+  tags: string[];
   sources: SourceDto[];
   claimReviews: ClaimReviewDto[];
   namedIndividuals: string[]; // already gate-filtered server-side

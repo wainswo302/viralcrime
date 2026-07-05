@@ -15,7 +15,8 @@ function fixtureSummaries(): CaseSummaryDto[] {
     state: c.state,
     incidentDate: c.incidentDate,
     videoProvenance: c.videoProvenance,
-    embedRefs: c.embedRefs
+    embedRefs: c.embedRefs,
+    tags: c.tags
   }));
 }
 

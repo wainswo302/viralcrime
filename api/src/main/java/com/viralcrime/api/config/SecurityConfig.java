@@ -25,9 +25,9 @@ import java.util.List;
  * header, which sidesteps CSRF entirely and works the same cross-origin.
  *
  * The public case-read API (GET /api/cases/**) stays open; it's the
- * licensable product. Everything under /api/drafts/** requires the admin
- * credential, since that's the only surface that can create or approve
- * editorial changes.
+ * licensable product. Everything under /api/drafts/** and /api/admin/**
+ * requires the admin credential, since those are the only surfaces that can
+ * create, approve, or directly edit editorial content.
  */
 @Configuration
 @EnableWebSecurity
@@ -65,7 +65,7 @@ public class SecurityConfig {
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("GET", "/api/cases/**").permitAll()
-                .requestMatchers("/api/drafts/**").authenticated()
+                .requestMatchers("/api/drafts/**", "/api/admin/**").authenticated()
                 .anyRequest().permitAll()
             )
             .httpBasic(basic -> {});
@@ -75,7 +75,7 @@ public class SecurityConfig {
     private CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(webOrigin));
-        config.setAllowedMethods(List.of("GET", "POST", "PATCH", "OPTIONS"));
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", config);

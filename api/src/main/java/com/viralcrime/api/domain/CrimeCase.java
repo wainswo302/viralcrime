@@ -63,6 +63,12 @@ public class CrimeCase {
     @Column(name = "embed_refs", nullable = false)
     private List<String> embedRefs = new ArrayList<>();
 
+    // Free-form topic tags (e.g. "viral", "video-verified"). eventType stays
+    // the authoritative single-value classification; these are supplementary.
+    @JdbcTypeCode(SqlTypes.JSON)
+    @Column(name = "tags", nullable = false)
+    private List<String> tags = new ArrayList<>();
+
     @Enumerated(EnumType.STRING)
     @Column(name = "legal_status", nullable = false)
     private LegalStatus legalStatus = LegalStatus.NONE_REPORTED;
@@ -121,6 +127,7 @@ public class CrimeCase {
     public String getEventType() { return eventType; }
     public String getJurisdictionCity() { return jurisdictionCity; }
     public String getJurisdictionCounty() { return jurisdictionCounty; }
+    public void setJurisdictionCounty(String c) { this.jurisdictionCounty = c; }
     public String getJurisdictionState() { return jurisdictionState; }
     public java.time.LocalDate getIncidentDate() { return incidentDate; }
     public void setIncidentDate(java.time.LocalDate d) { this.incidentDate = d; }
@@ -132,8 +139,11 @@ public class CrimeCase {
     public void setVideoNotes(String n) { this.videoNotes = n; }
     public List<String> getEmbedRefs() { return embedRefs; }
     public void addEmbedRef(String url) { embedRefs.add(url); }
+    public List<String> getTags() { return tags; }
+    public void setTags(List<String> tags) { this.tags = tags; }
     public java.time.Instant getLastVerifiedAt() { return lastVerifiedAt; }
     public void setLastVerifiedAt(java.time.Instant t) { this.lastVerifiedAt = t; }
+    public java.time.Instant getCreatedAt() { return createdAt; }
 
     public void addSource(Source s) { s.setCrimeCase(this); sources.add(s); }
     public void addNamedIndividual(NamedIndividual n) { n.setCrimeCase(this); namedIndividuals.add(n); }
