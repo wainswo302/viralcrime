@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { TOWNS, allTownSlugs } from "@/lib/towns";
+import { getTown, allTownSlugs } from "@/lib/towns";
 
 interface Params { params: { slug: string }; }
 
+// Pre-render known towns at build time (SEO + speed); ISR refreshes them via
+// listCases()'s revalidate. New towns still render on demand (dynamicParams).
 export async function generateStaticParams() {
-  return allTownSlugs().map((slug) => ({ slug }));
+  return (await allTownSlugs()).map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const t = TOWNS[params.slug];
+  const t = await getTown(params.slug);
   if (!t) return { title: "Town not found — ViralCrime" };
   const title = `${t.city}, ${t.state} — crime & public safety records`;
   return {
@@ -19,8 +21,8 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
   };
 }
 
-export default function TownHub({ params }: Params) {
-  const t = TOWNS[params.slug];
+export default async function TownHub({ params }: Params) {
+  const t = await getTown(params.slug);
   if (!t) notFound();
 
   const jsonLd = {
@@ -34,7 +36,7 @@ export default function TownHub({ params }: Params) {
     <main className="wrap">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <p className="eyebrow">Town record · {t.county} County</p>
+      <p className="eyebrow">Town record{t.county ? ` · ${t.county} County` : ""}</p>
       <h1 className="headline">{t.city}, {t.state} — crime &amp; public safety</h1>
       <p className="lede">{t.blurb}</p>
 

@@ -48,9 +48,11 @@ public class CaseController {
                 c.getHeadline(),
                 c.getEventType(),
                 c.getJurisdictionCity(),
+                c.getJurisdictionCounty(),
                 c.getJurisdictionState(),
                 c.getState().name(),
                 c.getIncidentDate(),
+                c.getVideoProvenance().name(),
                 c.getEmbedRefs()
             ))
             .toList();

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getCase, allFixtureSlugs } from "@/lib/api";
+import { getCase, listCases } from "@/lib/api";
 import { buildAllJsonLd } from "@/lib/schema";
 import { formatDate } from "@/lib/status";
 import { StatusTags } from "@/components/StatusTags";
@@ -13,7 +13,7 @@ interface Params { params: { slug: string }; }
 
 // Pre-render known cases at build time (SEO + speed); ISR refreshes them.
 export async function generateStaticParams() {
-  return allFixtureSlugs().map((slug) => ({ slug }));
+  return (await listCases()).map((c) => ({ slug: c.slug }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {

@@ -9,9 +9,11 @@ function fixtureSummaries(): CaseSummaryDto[] {
     headline: c.headline,
     eventType: c.eventType,
     jurisdictionCity: c.jurisdictionCity,
+    jurisdictionCounty: c.jurisdictionCounty,
     jurisdictionState: c.jurisdictionState,
     state: c.state,
     incidentDate: c.incidentDate,
+    videoProvenance: c.videoProvenance,
     embedRefs: c.embedRefs
   }));
 }

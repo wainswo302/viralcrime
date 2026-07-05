@@ -18,9 +18,11 @@ export interface CaseSummaryDto {
   headline: string;
   eventType: string;
   jurisdictionCity: string;
+  jurisdictionCounty: string | null;
   jurisdictionState: string;
   state: string;
   incidentDate: string | null;
+  videoProvenance: string;
   embedRefs: string[];
 }
 

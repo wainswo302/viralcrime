@@ -9,8 +9,10 @@ public record CaseSummaryDto(
     String headline,
     String eventType,
     String jurisdictionCity,
+    String jurisdictionCounty,
     String jurisdictionState,
     String state,
     LocalDate incidentDate,
+    String videoProvenance,
     List<String> embedRefs
 ) { }
