@@ -11,6 +11,7 @@ function fixtureSummaries(): CaseSummaryDto[] {
     jurisdictionCity: c.jurisdictionCity,
     jurisdictionCounty: c.jurisdictionCounty,
     jurisdictionState: c.jurisdictionState,
+    locationBlock: c.locationBlock,
     state: c.state,
     incidentDate: c.incidentDate,
     videoProvenance: c.videoProvenance,

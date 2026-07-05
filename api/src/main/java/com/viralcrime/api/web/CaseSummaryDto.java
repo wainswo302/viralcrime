@@ -11,6 +11,7 @@ public record CaseSummaryDto(
     String jurisdictionCity,
     String jurisdictionCounty,
     String jurisdictionState,
+    String locationBlock,
     String state,
     LocalDate incidentDate,
     String videoProvenance,

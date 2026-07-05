@@ -31,10 +31,19 @@ export default async function TownHub({ params }: Params) {
     name: `${t.city}, ${t.state} — crime & public safety`,
     about: { "@type": "Place", name: `${t.city}, ${t.state}` }
   };
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Towns", item: "/towns" },
+      { "@type": "ListItem", position: 2, name: `${t.city}, ${t.state}`, item: `/towns/${t.slug}` }
+    ]
+  };
 
   return (
     <main className="wrap">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
 
       <p className="eyebrow">Town record{t.county ? ` · ${t.county} County` : ""}</p>
       <h1 className="headline">{t.city}, {t.state} — crime &amp; public safety</h1>
@@ -55,6 +64,34 @@ export default async function TownHub({ params }: Params) {
           </a>
         ))}
       </ul>
+
+      {t.blotterPeriods.length > 0 && (
+        <>
+          <h2 className="section-title">Blotter</h2>
+          <ul className="incidents">
+            {t.blotterPeriods.map((b) => (
+              <a className="incident" key={b.period} href={`/towns/${t.slug}/blotter/${b.period}`}>
+                <span className="incident__t">{b.label}</span>
+                <span className="incident__m">{b.count} incident{b.count === 1 ? "" : "s"}</span>
+              </a>
+            ))}
+          </ul>
+        </>
+      )}
+
+      {t.locations.length > 0 && (
+        <>
+          <h2 className="section-title">By location</h2>
+          <ul className="incidents">
+            {t.locations.map((l) => (
+              <a className="incident" key={l.slug} href={`/towns/${t.slug}/${l.slug}`}>
+                <span className="incident__t">{l.street}</span>
+                <span className="incident__m">{l.count} incident{l.count === 1 ? "" : "s"}</span>
+              </a>
+            ))}
+          </ul>
+        </>
+      )}
 
       <footer className="foot">
         <span>Sourced from official records</span>

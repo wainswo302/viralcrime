@@ -50,6 +50,7 @@ public class CaseController {
                 c.getJurisdictionCity(),
                 c.getJurisdictionCounty(),
                 c.getJurisdictionState(),
+                c.getLocationBlock(),
                 c.getState().name(),
                 c.getIncidentDate(),
                 c.getVideoProvenance().name(),

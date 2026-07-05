@@ -20,6 +20,7 @@ export interface CaseSummaryDto {
   jurisdictionCity: string;
   jurisdictionCounty: string | null;
   jurisdictionState: string;
+  locationBlock: string | null;
   state: string;
   incidentDate: string | null;
   videoProvenance: string;
